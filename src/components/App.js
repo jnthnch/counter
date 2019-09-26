@@ -1,4 +1,5 @@
 import React from 'react';
+import LoginForm from './LoginForm.jsx';
 import './style.css';
 
 class App extends React.Component {
@@ -11,7 +12,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1 className='header-1'>Hello from App.js</h1>
+        <LoginForm></LoginForm>
       </div>
     );
   }
