@@ -9,13 +9,22 @@ class LoginForm extends React.Component {
 
     this.usernameRef = React.createRef();
     this.passwordRef = React.createRef();
-
   }
 
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted')
+    const url = 'http://localhost:3000/api/login';
+    const data = {
+      username: this.usernameRef.current.value,
+      password: this.passwordRef.current.value,
+    }
+    fetch(url, {
+      method: 'POST',
+      body: data
+    })
+      .then(res => res.json())
+      .then(result => console.log(result))
   }
 
   render() {
