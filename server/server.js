@@ -20,6 +20,21 @@ app.post('/api', (req, res) => {
   })
 })
 
+// create token on login
+app.post('/api/login', (req, res) => {
+  const user = {
+    id: 1,
+    username: 'jon'
+  }
+
+  jwt.sign(user, 'secretKey', { expiresIn: '2 days' }, (err, token) => {
+    res.json({
+      token
+    })
+    // res.cookie('token', token, { httpOnly: false })
+  })
+})
+
 // this method requires credentials / token
 app.post('/api/counter', checkForToken, (req, res) => {
   jwt.verify(req.token, 'secretKey', (error, data) => {
@@ -31,19 +46,6 @@ app.post('/api/counter', checkForToken, (req, res) => {
         data: data
       })
     }
-  })
-})
-
-app.post('/api/login', (req, res) => {
-  const user = {
-    id: 1,
-    username: 'jon'
-  }
-
-  jwt.sign(user, 'secretKey', { expiresIn: '2 days' }, (err, token) => {
-    res.json({
-      token
-    })
   })
 })
 
