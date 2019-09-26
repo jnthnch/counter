@@ -28,6 +28,8 @@ app.post('/api/login', (req, res) => {
   }
 
   jwt.sign(user, 'secretKey', { expiresIn: '2 days' }, (err, token) => {
+    res.cookie('token', token, { httpOnly: false })
+
     res.json({
       token
     })
