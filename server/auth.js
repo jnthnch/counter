@@ -11,12 +11,10 @@ router.post('/login', (req, res) => {
   }
 
   jwt.sign(user, process.env.SECRET_TOKEN, { expiresIn: '2 days' }, (err, token) => {
-
-    res.cookie('token', token, { httpOnly: false })
+    res.cookie('token', token, { httpOnly: true })
     res.json({
       token
     })
-    // res.cookie('token', token, { httpOnly: false })
   })
 })
 

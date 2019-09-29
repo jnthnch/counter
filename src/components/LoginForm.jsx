@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const url = 'http://localhost:3000/api/login';
+    const url = 'http://localhost:3000/api/users/login';
     const data = {
       username: this.usernameRef.current.value,
       password: this.passwordRef.current.value,
