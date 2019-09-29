@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
+const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-
 const app = express();
+
+dotenv.config();
 
 app.set('port', process.env.PORT || 3000);
 
@@ -28,8 +30,8 @@ app.post('/api/login', (req, res) => {
   }
 
   jwt.sign(user, 'secretKey', { expiresIn: '2 days' }, (err, token) => {
-    res.cookie('token', token, { httpOnly: false })
 
+    res.cookie('token', token, { httpOnly: false })
     res.json({
       token
     })
