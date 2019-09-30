@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm.jsx';
+import Homepage from './Homepage.jsx'
 import './style.css';
 
 class App extends React.Component {
