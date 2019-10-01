@@ -10,10 +10,12 @@ router.post('/login', (req, res) => {
     username: 'jon'
   }
 
-  jwt.sign(user, process.env.SECRET_TOKEN, { expiresIn: '2 days' }, (err, token) => {
-    res.cookie('token', token, { httpOnly: true })
+  jwt.sign(user, process.env.SECRET_TOKEN, { expiresIn: "10h" }, (err, token) => {
+    res.cookie('token', token, {
+      httpOnly: true
+    })
     res.json({
-      token
+      your_token: token
     })
   })
 })
@@ -21,7 +23,11 @@ router.post('/login', (req, res) => {
 router.post('/counter', checkForToken, (req, res) => {
   jwt.verify(req.token, process.env.SECRET_TOKEN, (error, data) => {
     if (error) {
-      res.sendStatus(403)
+      res.status(403)
+      res.json({
+        auth: false,
+        message: 'Not An Authorized User'
+      })
     } else {
       res.json({
         message: 'incremented Count!!!',

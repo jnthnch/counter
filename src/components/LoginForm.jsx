@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
       body: data
     })
       .then(res => res.json())
-      .then(this.setState({ loggedIn: true }, () => console.log(this.state)))
+      .then(data => console.log('data is', data))
   }
 
   render() {
