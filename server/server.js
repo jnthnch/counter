@@ -7,10 +7,17 @@ const app = express();
 
 dotenv.config();
 
-let count = 0
+let currentCount = 0
+let nextCount = 1;
 
 function incrementCount() {
-  count += 1
+  if (currentCount === 0) {
+    currentCount += 1
+    nextCount = 1;
+  } else {
+    nextCount = currentCount * 2;
+    currentCount = nextCount;
+  }
 }
 
 app.set('port', process.env.PORT || 3000);
@@ -23,9 +30,19 @@ app.get('/api/authenticate', withAuth, (req, res) => {
   res.send('token works!')
 })
 
+app.get('www')
+
+app.get('/api/currentcounts', (req, res) => {
+  res.json({ currentCount });
+})
+
+app.get('/api/possiblecounts', (req, res) => {
+  res.json({ currentCount, nextCount: currentCount === 0 ? 1 : currentCount * 2 });
+})
+
 app.post('/api/increment', (req, res) => {
   incrementCount();
-  res.send(`${count}`);
+  res.json({ currentCount: currentCount, nextCount: nextCount });
 })
 
 app.get('*', (req, res) => {
