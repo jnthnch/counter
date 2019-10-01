@@ -56,7 +56,7 @@ app.get('/api/authenticate', withAuth, (req, res) => {
 
 app.get('dsadsadsa')
 
-app.get('/api/currentcounts', authenticateToken, (req, res) => {
+app.get('/api/currentcount', authenticateToken, (req, res) => {
   res.json({ currentCount });
 })
 

@@ -10,7 +10,7 @@ class Homepage extends React.Component {
   }
 
   componentDidMount() {
-    const url = 'http://localhost:3000/api/users/currentcounts';
+    const url = 'http://localhost:3000/api/users/currentcount';
     fetch(url, {
       method: 'GET'
     })
