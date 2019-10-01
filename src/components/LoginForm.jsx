@@ -5,6 +5,7 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedIn: false
     };
 
     this.usernameRef = React.createRef();
@@ -24,7 +25,7 @@ class LoginForm extends React.Component {
       body: data
     })
       .then(res => res.json())
-      .then(result => console.log(result))
+      .then(this.setState({ loggedIn: true }, () => console.log(this.state)))
   }
 
   render() {
