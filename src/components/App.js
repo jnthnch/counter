@@ -20,7 +20,6 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={LoginForm} />
             <Route path="/homepage" component={Homepage} />
-            <PrivateRoute path="/homepage" component={Homepage} />
           </Switch>
         </div>
       </Router>
