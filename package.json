@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "react-dev": "webpack -d -w",
     "server-dev": "nodemon server/server.js",
+    "build": "webpack -p",
     "server": "node server/server.js"
   },
   "author": "jonathan",

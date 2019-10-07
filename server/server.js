@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const authenticationRoute = require('./auth');
+const { router, authenticateToken } = require('./auth');
 const morgan = require('morgan');
 const withAuth = require('./middleware');
 const app = express();
@@ -16,7 +16,7 @@ let nextCount = 1;
 
 function incrementCount() {
   if (currentCount === 0) {
-    currentCount += 1
+    currentCount += 1;
     nextCount = 1;
   } else {
     nextCount = currentCount * 2;
@@ -24,37 +24,15 @@ function incrementCount() {
   }
 }
 
-function authenticateToken(req, res, next) {
-  let cookie = req.headers['cookie'];
-  let token = cookie.split('=')[1];
-  if (typeof token !== 'undefined') {
-    req.token = token;
-    jwt.verify(req.token, process.env.SECRET_TOKEN, (error, data) => {
-      if (error) {
-        res.status(403)
-        res.json({
-          auth: false,
-          message: 'Not An Authorized User'
-        })
-      }
-    })
-    next();
-  } else {
-    res.sendStatus(403)
-  }
-}
-
 app.set('port', process.env.PORT || 3000);
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 
-app.use('/api/users', authenticationRoute);
+app.use('/api/users', router);
 
 app.get('/api/authenticate', withAuth, (req, res) => {
   res.send('token works!')
 })
-
-app.get('dsadsadsa')
 
 app.get('/api/currentcount', authenticateToken, (req, res) => {
   res.json({ currentCount });

@@ -1,21 +1,15 @@
-.header-1 {
-  border: 1px solid blue;
-  color: blue;
-}
-
 .main {
-  border: 1px solid teal;
-  height: 100%;
-  width: 100%;
   position: absolute;
   display: flex;
-  align-content: center;
+  height: 100%;
+  width: 100%;
   justify-content: center;
+  align-items: center;
+  font-family: Lucida Grande;
 }
 
 .login-form {
   display: flex;
-  border: 1px solid orange;
   height: 100%;
   width: 50%;
   justify-content: center;
@@ -29,24 +23,74 @@
   align-items: flex-end;
 }
 
-.homepage {
-  position: absolute;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid pink;
-}
-
 .homepage__count {
   display: flex;
-  border: 1px solid blue;
+  padding: 0.5em 0;
 }
 
 .homepage__button {
   display: flex;
-  position: absolute;
-  left: 53%;
+  position: relative;
 }
 
+.homepage__imaginary-button {
+  visibility: hidden;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+
+.modal__confirm-cancel-button {
+  margin: 0.5em;
+}
+
+button {
+  text-align: center;
+  cursor: pointer;
+  background-color: lightgray;
+  padding: 0.5em 1em;
+  border-radius: 0.5rem;
+  font-family: Lucida Grande;
+}
+
+button:hover {
+  background-color: darkgray;
+}
+
+input {
+  margin: 0.5em;
+  padding: 0.25em 0.5em;
+  border: 1px solid lightgray;
+  outline: none;
+  font-family: Lucida Grande;
+  font-size: 16px;
+  color: #808080;
+}
+
+#confirm-cancel-message {
+  padding: 0.5em;
+}
+
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+}

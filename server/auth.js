@@ -7,46 +7,58 @@ dotenv.config();
 router.post('/login', (req, res) => {
   const user = {
     id: 1,
-    username: 'jon'
+    username: 'jon',
   }
 
   jwt.sign(user, process.env.SECRET_TOKEN, { expiresIn: "10h" }, (err, token) => {
-    res.cookie('token', token, {
-      httpOnly: true
-    })
-    res.json({
-      your_token: token
-    })
-  })
-})
-
-router.post('/counter', checkForToken, (req, res) => {
-  jwt.verify(req.token, process.env.SECRET_TOKEN, (error, data) => {
-    if (error) {
-      res.status(403)
+    if (err) {
+      res.status(500);
       res.json({
-        auth: false,
-        message: 'Not An Authorized User'
-      })
+        message: 'Error creating token',
+      });
     } else {
-      res.json({
-        message: 'incremented Count!!!',
-        data: data
-      })
-    }
-  })
-})
+      res.cookie('token', token, {
+        httpOnly: true,
+      });
 
-function checkForToken(req, res, next) {
-  const bearerHeader = req.headers['authorization'];
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const token = bearer[1];
+      res.json({
+        your_token: token,
+      });
+    }
+  });
+});
+
+function authenticateToken(req, res, next) {
+  let cookie = req.headers['cookie'];
+  if (!cookie) {
+    res.status(403);
+    res.json({
+      auth: false,
+      message: 'No cookie',
+    });
+  }
+
+  let token = cookie.split('=')[1];
+  if (typeof token !== 'undefined') {
     req.token = token;
+    jwt.verify(req.token, process.env.SECRET_TOKEN, (error, data) => {
+      if (error) {
+        res.status(403);
+        res.json({
+          auth: false,
+          message: 'Not An Authorized User'
+        });
+      } else {
+        res.status(200);
+      }
+    })
     next();
   } else {
-    res.sendStatus(403)
+    res.sendStatus(403);
   }
 }
 
-module.exports = router;
+module.exports = {
+  router,
+  authenticateToken,
+};

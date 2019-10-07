@@ -5,7 +5,7 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: false,
     };
 
     this.usernameRef = React.createRef();
@@ -22,15 +22,16 @@ class LoginForm extends React.Component {
     }
     fetch(url, {
       method: 'POST',
-      body: data
+      body: data,
     })
       .then(res => res.json())
-      .then(data => console.log('data is', data))
+      .then(this.props.history.push('/homepage'))
+      .catch(error => window.confirm('Login Error', error));
   }
 
   render() {
     return (
-      <div className='main'>
+      <div className="main">
         <form className="login-form">
           <div className="login-form__inputs">
             <label>
