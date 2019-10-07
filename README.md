@@ -11,7 +11,7 @@ GRIO counter app
 
 4. Start server, `npm run server` and visit `localhost:3000`
 
-5. Log in with username `hello`, password `howyoutoday`
+5. Log in with any username and password. Dummy user is created on server. 
 
 ---
 
